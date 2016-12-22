@@ -1,0 +1,79 @@
+3. A program to find a substring in a String without using an inbuilt method of String class for the same :
+
+package CheckingSubString;
+
+import java.util.Scanner;
+
+public class CheckingSubString {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Scanner input = new Scanner(System.in);
+        System.out.print("Please enter a String: ");
+        String string1 = input.next();
+        System.out.print("Please enter a second String: ");
+        String string2 = input.next();
+        if (isSubstring(string1, string2)) {
+            System.out.println("The first string is a substring of the second.");
+        } else {
+            System.out.println("The first string is NOT a substring of the second.");
+        }
+    }   
+    public static boolean isSubstring(String string1, String string2) {
+        char c;
+        char d;
+        boolean match = true;
+        int count = 1;
+        int counter = 0;
+        boolean matchFound = false;
+        for (int i = 0; i < string1.length(); i++) {
+            c = string1.charAt(i);
+            //Part 2: This part determines if the characters following the 1st matching character are also matches
+            if (matchFound == true) {
+                for (int j = count + counter; j < string2.length(); j++) {
+                    d = string2.charAt(j);
+                    if (d != c) {
+                        System.out.println("MATCH2: N The value of c and d: " + c + " and " + d);   
+                        match = false;
+                    } else {
+                        counter++;
+                        System.out.println("MATCH2: Y The value of c and d: " + c + " and " + d + " " + counter);
+                        matchFound = true;
+                        break;
+                    }
+                }
+            }   
+            //Part1: This part determines wheter the 1st character of string1 has a match in string2
+            //If a match is found, Part 2 happens
+            if (matchFound == false) {
+                for (int k = 0; k < string2.length(); k++) {
+                    d = string2.charAt(k);  
+                    if (d != c) {
+                        count ++;
+                        System.out.println("MATCH: N The value of c and d: " + c + " and " + d + " " + count);  
+                        matchFound = false;
+                    } else {
+                        System.out.println("MATCH: Y The value of c and d: " + c + " and " + d + " " + count);
+                        matchFound = true;
+                        break;
+                    }   
+                match = true;
+                }   
+            }   
+        }
+            return match;
+	}
+
+}
+
+
+Result :
+
+Please enter a String: antartica
+Please enter a second String: ant
+MATCH: Y The value of c and d: a and a 1
+MATCH2: Y The value of c and d: n and n 1
+MATCH2: Y The value of c and d: t and t 2
+The first string is a substring of the second.
+
